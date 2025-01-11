@@ -20,7 +20,7 @@ int main() {
 ```
 In this case, 'MyStruct' is specified as 16 byte alignment, which means that the starting address of each instance of 'MyStruct' will be a multiple of 16.
 
-##auto
+## auto
 `auto` allows the compiler to infer the type of a variable according to its initialization expression, thus simplifying the code and improving readability. Auto can be used in scenarios such as variable declaration and function return type.
 ```cpp
 auto x = 42;          // x is int
@@ -35,7 +35,8 @@ int& ref = a;
 auto b = ref;  // b is int, not int&，because auto duplicate the value
 ```
 
-##concept
+
+## concept
 `concept` is used to specify the constraints of template parameters. `concept` provide a clearer and more powerful way to define the requirements of templates, thus improving the readability and maintainability of the code.
 ```cpp
 // define a concept，template T must support add
@@ -56,7 +57,9 @@ int main() {
     return 0;
 }
 ```
-##explicit
+
+
+## explicit
 `explicit` in C++ is used to prevent unintended implicit type conversions when constructors or conversion operators are invoked.
 ```cpp
 class Box {
@@ -78,11 +81,10 @@ int main() {
 }
 ```
 
-##inline
+
+## inline
 The `inline` keyword in C++ is used as a request to the compiler to replace a function call with the actual code of the function at compile time. This can potentially improve performance by avoiding the overhead of a function call, but it comes with certain trade-offs.
 ```cpp
-#include <iostream>
-
 // Inline function definition
 inline int add(int a, int b) {
     return a + b;
@@ -94,7 +96,9 @@ int main() {
     return 0;
 }
 ```
-###Example: When Inlining May Be Ignored
+
+
+### Example: When Inlining May Be Ignored
 1. Large Function:
 ```cpp
 inline void largeFunction() {
@@ -113,11 +117,10 @@ inline int factorial(int n) {
 ```
 Recursive functions are generally not inlined because they involve multiple calls to themselves.
 
-##typedef
+
+## typedef
 `typedef` keyword in C++ allows you to define a new name (alias) for an existing type. This can make code more readable, improve portability, and simplify complex type declarations.
 ```cpp
-#include <iostream>
-
 typedef unsigned int UInt;
 
 int main() {
@@ -127,7 +130,8 @@ int main() {
 }
 ```
 
-##virtual
+
+## virtual
 `virtual` keyword in C++ is used to define polymorphic behavior in object-oriented programming. It allows derived classes to override a function in the base class and ensures that the overridden version of the function is called dynamically at runtime, even when accessed through a base class pointer or reference.
 ```cpp
 class Base {
