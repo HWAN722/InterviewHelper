@@ -108,8 +108,8 @@ inline void largeFunction() {
 }
 ```
 The compiler may decide not to inline this function due to its size.
-2. Recursive Function:
 
+2. Recursive Function:
 ```cpp
 inline int factorial(int n) {
     return (n <= 1) ? 1 : n * factorial(n - 1);  // Recursive call
