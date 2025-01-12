@@ -98,7 +98,7 @@ int main() {
 ```
 
 
-### Example: When Inlining May Be Ignored
+**Example: When Inlining May Be Ignored**
 1. Large Function:
 ```cpp
 inline void largeFunction() {
