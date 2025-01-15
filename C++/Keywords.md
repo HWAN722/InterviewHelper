@@ -117,6 +117,35 @@ inline int factorial(int n) {
 ```
 Recursive functions are generally not inlined because they involve multiple calls to themselves.
 
+## template
+`template`Allows you to write universal and reusable code. Templates can be used for functions and classes, so that they can handle different data types without having to write the same code repeatedly.
+```cpp
+template <typename T>
+T add(T a, T b) {
+    return a + b;
+}
+```
+
+```cpp
+template <typename T>
+class Box {
+private:
+    T value;
+public:
+    Box(T v) : value(v) {}
+    T getValue() { return value; }
+};
+
+int main() {
+    Box<int> intBox(123);
+    Box<double> doubleBox(456.78);  // <int> and <double> can be deleted here
+
+    cout << intBox.getValue() << endl;  // 123
+    cout << doubleBox.getValue() << endl;  // 456.78
+
+    return 0;
+}
+```
 
 ## typedef
 `typedef` keyword in C++ allows you to define a new name (alias) for an existing type. This can make code more readable, improve portability, and simplify complex type declarations.

@@ -163,3 +163,17 @@ int main() {
 1. Involves functions with the same name but different parameter lists.
 2. Can occur within the same class or scope.
 3. Does not involve inheritance or virtual functions.
+
+## Two ways declare an object
+
+### 1. `Me me;`
+
+- **Memory allocation**:Allocate memory on the stack. Memory allocation on the stack is usually faster and is automatically released at the end of the function scope.
+- **Life cycle**:Automatically managed by the compiler. When me leaves its scope (for example, at the end of a function), the me object on the stack is automatically destroyed and the memory is released.
+- **Use**:Access the methods and properties of an object directly through the `.` operator, for example: `me.eat ();` .
+
+### 2. `Me* me = new Me();`
+
+- **Memory allocation**:Allocate memory on the heap. The memory management of heap is relatively complex, which needs to be managed manually by programmers.
+- **Life cycle**:The life cycle of an object is controlled by the programmer. Delete me must be called manually when the object is no longer needed; To release memory to avoid memory leakage.
+- **Use**:Access the methods and properties of an object through the `->` operator, for example: `me->eat ();` .
