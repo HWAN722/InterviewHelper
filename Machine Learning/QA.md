@@ -2,20 +2,178 @@
 
 ## 1. Difference between XGBoost, Lightgbm and GDBT
 
+### XGBoost
+
+XGBoost stands for Extreme Gradient Boosting. It is an advanced version of gradient boosting that incorporates additional features to improve performance and efficiency. These include:
+
+- **Regularization**: L1 and L2 regularization to prevent overfitting.
+- **Parallelization**: Parallel tree construction to reduce training time.
+- **Sparsity Aware**: XGBoost can handle sparse data directly without needing preprocessing like imputation.
+- **Tree Pruning**: It uses max depth for stopping tree growth, whereas traditional GBDT stops growth when further splits add no gain.
+
+**Performance**: XGBoost is highly optimized and generally performs well on most structured/tabular data.
+
+### LightGBM:
+
+LightGBM (Light Gradient Boosting Machine) is a highly efficient gradient boosting framework designed for speed and scalability. It introduces innovations like:
+
+- **Histogram-based learning**: LightGBM uses a histogram to discretize continuous features, reducing computation time for large datasets.
+- **Leaf-wise growth**: Instead of growing level-wise (as in traditional GBDT), LightGBM grows trees leaf-wise, which can lead to better accuracy, though it may overfit on smaller datasets.
+- **Categorical feature handling**: LightGBM directly handles categorical features without needing one-hot encoding, making it faster and more memory-efficient.
+
+**Performance**: LightGBM is generally faster than XGBoost and performs well on large datasets, especially when there are many features.
+
+### GBDT:
+
+Gradient Boosting Decision Trees (GBDT) is the general framework behind both XGBoost and LightGBM. It constructs an ensemble of decision trees by iteratively fitting new trees to the residuals (errors) of the existing model.
+
+**Limitations**: While GBDT is flexible, it's less optimized in terms of speed and memory efficiency compared to the specialized implementations like XGBoost and LightGBM.
+
 ## 2. Difference between LSTM, GRU and RNN
+
+### RNN (Recurrent Neural Network):
+
+- Standard RNNs suffer from the **vanishing gradient problem**, which occurs when the gradients used for updating weights in backpropagation shrink exponentially, making it difficult for the network to learn long-term dependencies.
+- RNNs are simple in structure: at each time step, they take an input and the previous hidden state as input to the next time step.
+- RNNs are suitable for sequence prediction tasks, but their main weakness is their inability to learn long-term dependencies effectively.
+
+### LSTM (Long Short-Term Memory):
+
+LSTMs were designed to combat the vanishing gradient problem by introducing a memory cell and gating mechanisms (input, forget, and output gates) to control the flow of information.
+
+**Key Features**:
+- Forget gate: Decides which information from the previous hidden state should be discarded.
+- Input gate: Controls how much new information should be added to the cell state.
+- Output gate: Determines the final output based on the memory cell.
+LSTMs are particularly useful for tasks where capturing long-term dependencies is critical, such as in speech recognition, text generation, and time series forecasting.
+
+### GRU (Gated Recurrent Unit):
+
+GRU is a simpler version of LSTM, with fewer gates. It combines the forget and input gates into a single update gate, and it also lacks the separate output gate.
+
+**Key Features**:
+- Update gate: Decides how much of the previous memory and new information should be carried forward.
+- Reset gate: Controls how much of the past information is forgotten.
+- GRU is computationally more efficient than LSTM and can perform similarly on many tasks, making it a good choice when resource efficiency is critical.
+
 
 ## 3. Difference between generative model and discriminant model
 
+### Generative Models:
+
+These models learn the joint probability distribution *P*(*X*,*Y*) of the input data *X* and the output labels *Y*. Essentially, they try to learn how the data is generated.
+- **Examples**: Naive Bayes, Gaussian Mixture Models (GMM), Hidden Markov Models (HMM), Generative Adversarial Networks (GAN).
+- **Advantages**: Generative models can generate new data and are useful when you need to model the data distribution itself. They can be used for data augmentation.
+- **Disadvantages**: They are often more complex and require more data to train effectively.
+
+### Discriminative Models:
+These models focus on modeling the conditional probability *P*(*X*∣*Y*), which means they learn the boundary between different classes in the feature space. They do not try to model how data is generated, only how to classify or predict labels given inputs.
+
+- **Examples**: Logistic Regression, Support Vector Machines (SVM), Decision Trees, Neural Networks.
+- **Advantages**: Discriminative models tend to perform better on classification tasks since they directly model the decision boundary.
+- **Disadvantages**: They do not have the ability to generate new samples from the distribution, and they require more labeled data for training.
+
 ## 4. Difference between Newton method and gradient descent method
 
-## 5. Difference Between Hard Margin and Soft Margin
+### Gradient Descent:
+
+Gradient Descent is an iterative optimization technique that aims to minimize a function by following the negative gradient of the function with respect to the parameters.
+
+**Formula**:
+   
+   $$\theta_{\text{new}} = \theta_{\text{old}} - \eta \nabla_{\theta} J(\theta)$$
+
+where $\eta$ is the learning rate and $\nabla_{\theta} J(\theta)$ is the gradient of the loss function.
+
+**Advantages**: Simple to implement and computationally efficient.
+
+**Disadvantages**: Slow convergence, especially in high-dimensional spaces. It can also get stuck in local minima.
+
+### Newton's Method:
+
+Newton's Method uses both the gradient and the second derivative (Hessian matrix) to find the minimum of the function. This allows it to converge faster than gradient descent in many cases because it considers the curvature of the loss function.
+
+**Formula**:
+
+$$\theta_{\text{new}} = \theta_{\text{old}} - H^{-1} \nabla_{\theta} J(\theta)$$
+
+where *H* is the Hessian matrix.
+
+**Advantages**: Faster convergence, especially near the optimal point.
+
+**Disadvantages**: Computing the Hessian matrix is computationally expensive, especially for large datasets. It can also be unstable if the Hessian is not positive-definite.
+
+## 5. Difference Between Hard Margin and Soft Margin in SVM
+
+### Hard Margin SVM:
+
+In the case of linearly separable data, hard margin SVM creates a decision boundary that perfectly separates the classes with no errors or misclassifications. The margin between the support vectors (data points closest to the hyperplane) is maximized.
+
+**Limitation**: Hard margin SVM is sensitive to outliers and noise in the data, as it requires perfect separation.
+
+### Soft Margin SVM:
+
+Soft margin SVM allows for some misclassification by introducing a penalty term for each misclassified point. The objective is to find a balance between a wide margin and minimizing classification errors.
+
+**Formula**: The objective function is modified with a regularization term *C*, which controls the trade-off between margin width and classification errors.
+
+**Advantage**: More robust to noise and outliers, making it applicable to non-linearly separable data.
 
 ## 6. Difference Between Parametric and Non-parametric Models
 
+### Parametric Models:
+
+Parametric models assume a specific functional form for the data distribution and estimate a fixed number of parameters.
+
+**Examples**: Linear Regression, Logistic Regression, Naive Bayes, Gaussian Mixture Models.
+
+**Advantages**: Computationally efficient, requires less data for training.
+
+**Disadvantages**: May perform poorly if the data does not match the assumed distribution.
+
+### Non-parametric Models:
+
+Non-parametric models do not assume a specific distribution and can adapt to a wide range of data structures.
+
+**Examples**: k-Nearest Neighbors (k-NN), Decision Trees, Random Forests, Kernel Density Estimation.
+
+**Advantages**: More flexible, can fit complex data patterns.
+
+**Disadvantages**: Requires more data to avoid overfitting and can be computationally expensive.
+
 ## 7. Difference and Connection Between Word2Vec Methods
+
+Word2Vec methods aim to generate word embeddings, which are dense, low-dimensional vectors that capture the semantic meaning of words. The two primary models are:
+
+- **Continuous Bag of Words (CBOW)**: CBOW tries to predict the target word from the surrounding context words. It takes a fixed-size window of context words and uses the average of their embeddings to predict the target word.
+- **Skip-Gram**: Skip-Gram works in the opposite direction of CBOW. It takes the target word and tries to predict the surrounding context words. Skip-Gram performs better on rare words.
+
+**Connection**: Both methods are used for learning word representations in a continuous vector space, but CBOW is faster to train, while Skip-Gram generally produces higher-quality embeddings for infrequent words.
 
 ## 8. What are boost methods
 
+Boosting is an ensemble learning technique where multiple weak models (usually decision trees) are combined to form a strong model. The idea is to focus on the mistakes made by previous models in each round and adjust the weights accordingly.
+Common boosting algorithms include:
+- AdaBoost (Adaptive Boosting): Weights the misclassified instances more heavily in each round.
+- Gradient Boosting: Builds trees sequentially to correct residual errors, using gradient descent to optimize the loss function.
+- XGBoost and LightGBM: Optimized gradient boosting algorithms that improve training speed, handle missing values, and reduce overfitting.
+
 ## 9. What are the solutions to category imbalance?
 
+**Resampling Techniques**:
+- Oversampling: Increasing the number of examples in the minority class, often using techniques like SMOTE (Synthetic Minority Over-sampling Technique).
+- Undersampling: Reducing the number of examples in the majority class.
+
+**Cost-sensitive Learning**: Adjusting the loss function to penalize misclassifications of the minority class more heavily.
+
+**Anomaly Detection**: Treating the minority class as anomalies, using models like Isolation Forest.
+
+**Ensemble Methods**: Using balanced random forests or EasyEnsemble to handle imbalanced classes.
+
 ## 10. Is there any loss of effect in expansion?
+
+**Model Expansion**:
+Risk of Overfitting: Expanding the model can lead to overfitting if the model complexity exceeds what is needed for the data. In this case, the model may capture noise instead of the underlying data distribution.
+
+**Feature Expansion**:
+Dimensionality Curse: Increasing the number of features (especially irrelevant ones) can lead to a curse of dimensionality, where the model struggles to generalize well due to too many features.
