@@ -1,5 +1,7 @@
 # Question & Answer
 
+# Machine Learning
+
 ## 1. Difference between XGBoost, Lightgbm and GDBT
 
 ### XGBoost
@@ -177,3 +179,57 @@ Risk of Overfitting: Expanding the model can lead to overfitting if the model co
 
 **Feature Expansion**:
 Dimensionality Curse: Increasing the number of features (especially irrelevant ones) can lead to a curse of dimensionality, where the model struggles to generalize well due to too many features.
+
+# Deep Learning
+
+## 1. What do transformer use, BN or LN?
+Transformer uses **Layer Normalization**.
+
+### Batch Normalization
+Batch normalization is to normalize a batch of data. Specifically, for each feature in a batch, the mean and variance are calculated, and these statistics are used to normalize the features.
+
+**Features and limitations:**
+- Dependent on batch size: the effect of BN depends on a large batch size to a great extent, and it does not perform well in small batch training.
+- Challenge of sequence data: BN may be unstable due to sequence length and position dependence when processing sequence data.
+- Inconsistency between training and reasoning: BN uses different statistics in training and reasoning, which may lead to different model behaviors.
+
+### Layer Normalization
+Layer normalization is to normalize the feature dimension of each sample. Specifically, for each sample, the mean and variance of all its features are calculated, and then the features are normalized by these statistics.
+
+**Features and limitations:**
+- Independent of batch size: the calculation of LN only depends on the characteristics of a single sample, so it is insensitive to batch size, especially suitable for small batch training or variable length input.
+- Suitable for sequence model: In Transformer, the input is usually sequence data, and LN can effectively deal with the dependence of each position in the sequence.
+- Simplified training: Compared with BN, LN does not need to maintain batch statistics during training and reasoning, which reduces the complexity of implementation.
+
+## 2. Difference between Layer Normalization of GPT3 and LLAMA
+GPT3 uses Post-Layer Normalization. The calculation of self-attention or feedforward neural network is carried out first, and then the Layer Normalization is carried out. This structure is helpful to stabilize the training process and improve the model performance.
+Llama uses Pre-Layer Normalization. Layer Normalization is performed first, and then the calculation of self-attention or feedforward neural network is performed. This structure helps to improve the generalization ability and robustness of the model.
+
+## 3. Commonly used activation function for LLM
+
+### GeLU(Gaussian Error Linear Unit)
+GELU is currently the most widely used activation function in transformer-based LLMs. It was popularized by the BERT model and has since become a standard choice in many architectures, including GPT series.
+
+### ReLU(Rectified Linear Unit)
+ReLU is one of the most popular activation functions in deep learning due to its simplicity and effectiveness. While it was foundational in earlier neural network architectures, its usage in LLMs has been somewhat supplanted by GELU.
+
+### Swish
+Swish is an activation function proposed by Google researchers and has been considered as an alternative to ReLU and GELU.
+
+| Model               | Activation Function | Notes                                 |
+|---------------------|---------------------|---------------------------------------|
+| Original Transformer| ReLU                | Introduced in "Attention is All You Need" |
+| BERT                | GELU                | Smooth non-linearity enhances performance |
+| GPT-3               | GELU                | Consistent with evolved transformer architectures |
+| LLaMA               | GELU                | Aligns with state-of-the-art LLM practices |
+
+## 4. How to handle repetition in LLM
+
+### 1. Adjusting Decoding Strategies
+- **Temperature Scaling**: A parameter that controls the randomness of the model's predictions. Lower temperatures make the model more deterministic, while higher temperatures increase randomness.
+- **Top-k Sampling**: Limits the model to consider only the top k most probable next tokens.
+- **Top-p (Nucleus) Sampling**: Selects tokens from the smallest possible set whose cumulative probability exceeds a threshold *p*.
+
+### 2. Training Enhancements
+- **Diverse Training Data**: Ensuring the training corpus includes a wide variety of language uses and minimizes repetitive patterns.
+- **Data Augmentation**: Introducing variations of sentences and phrases in the training data.
