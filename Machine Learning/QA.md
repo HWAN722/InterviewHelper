@@ -241,23 +241,23 @@ Swish is an activation function proposed by Google researchers and has been cons
 
 Multihead attention is a mechanism that allows the model to focus on different parts of the input sequence simultaneously. It is a key component of the Transformer architecture. The formula for scaled dot-product attention, which is used in multihead attention, is as follows:
 
-Given queries $$ Q $$, keys $$ K $$, and values $$ V $$, the attention output is computed as:
+Given queries $$Q$$, keys $$K$$, and values $$V$$, the attention output is computed as:
 
 $$ 
 \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V 
 $$
 
 Where:
-- $$ Q $$ is the matrix of queries.
-- $$ K $$ is the matrix of keys.
-- $$ V $$ is the matrix of values.
-- $$ d_k $$ is the dimension of the keys (and queries).
+- $$Q$$ is the matrix of queries.
+- $$K$$ is the matrix of keys.
+- $$V$$ is the matrix of values.
+- $$d_k$$ is the dimension of the keys (and queries).
 
 ### Reason for Dividing by $$\sqrt{d_k}$$
 
 The division by $$\sqrt{d_k}$$ is a scaling factor that is crucial for the stability of the attention mechanism. Here's why it's used:
 
-- 1. **Preventing Large Dot-Product Values**: Without scaling, the dot products $$ QK^T $$ can become very large, especially when the dimensionality $$ d_k $$ is large. This can push the softmax function into regions where it has extremely small gradients, which can slow down learning and make optimization difficult.
+- 1. **Preventing Large Dot-Product Values**: Without scaling, the dot products $$QK^T$$ can become very large, especially when the dimensionality $$d_k$$ is large. This can push the softmax function into regions where it has extremely small gradients, which can slow down learning and make optimization difficult.
 
 - 2. **Stabilizing Gradients**: By scaling the dot products by $$\sqrt{d_k}$$, the values are kept in a range that is more suitable for the softmax function, which helps maintain stable gradients during training.
 
