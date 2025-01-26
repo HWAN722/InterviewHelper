@@ -262,3 +262,17 @@ The division by $$\sqrt{d_k}$$ is a scaling factor that is crucial for the stabi
 - 2. **Stabilizing Gradients**: By scaling the dot products by $$\sqrt{d_k}$$, the values are kept in a range that is more suitable for the softmax function, which helps maintain stable gradients during training.
 
 - 3. **Empirical Performance**: Empirically, it has been observed that this scaling improves the performance of the model, leading to faster convergence and better results.
+
+## What is KV-cache, and why there is no Q-cache?
+
+**KV-cache**: This is a mechanism to store the key and value matrices from previous time steps so that they do not need to be recomputed for each new token in a sequence. When generating text, each new token requires the model to attend to all previous tokens. By caching the keys and values, the model can efficiently compute the attention for new tokens without recalculating the entire sequence's keys and values.
+
+**Query (Q) Matrix**: The query matrix is specific to the current token being processed. In autoregressive models, each new token has its own query vector because it represents the model's current focus or "question" about the sequence. Since the query is unique to each token and changes with each step, caching it would not be beneficial.
+
+**Benefits of KV-cache**
+
+- Efficiency: By caching keys and values, the model reduces redundant computations, leading to faster inference times, especially in long sequences.
+
+- Scalability: KV-caching allows models to handle longer contexts more efficiently, which is crucial for tasks like text generation where the context can grow with each new token.
+
+- Resource Optimization: It helps in optimizing memory and computational resources by avoiding repeated calculations for the same sequence of tokens.
