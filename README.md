@@ -1,1 +1,2 @@
 # InterviewHelper
+Welcome to InterviewHelper! This repository is a collection of curated materials designed to assist with preparation for technical interviews, focusing on areas such as algorithms, machine learning, programming concepts, and CUDA development.
