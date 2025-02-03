@@ -69,3 +69,28 @@ int globalThreadId = blockIdx.x * blockDim.x + threadIdx.x;
 
 - `blockIdx.x * blockDim.x` gives the starting index of the current block.
 - `threadIdx.x` gives the thread's position within the block.
+
+## Helper Types and Functions
+
+#### dim3
+- A simple way to specify 3D dimensions
+- Used for grid and block sizes
+- Example:
+```cpp
+dim3 blockSize(16, 16, 1);  // 16x16x1 threads per block
+dim3 gridSize(8, 8, 1);     // 8x8x1 blocks in grid
+```
+
+#### <<<>>>
+
+This is used to configure and launch kernels on the GPU. It defines the grid and block dimensions, shared memory size, and stream for kernel execution. Properly configuring these parameters is essential for efficient GPU programming and maximizing performance.
+
+- Special brackets for launching kernels
+- Specifies grid and block dimensions
+- Example:
+
+```cpp
+addNumbers<<<gridSize, blockSize>>>(a, b, result);
+```
+
+here `addNumbers` is the name of our kernel and `gridSize` and `blockSize` is the size of grid and block and are `a`, `b`, `result` are the arguments passed to the kernel

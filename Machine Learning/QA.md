@@ -276,3 +276,51 @@ The division by $$\sqrt{d_k}$$ is a scaling factor that is crucial for the stabi
 - Scalability: KV-caching allows models to handle longer contexts more efficiently, which is crucial for tasks like text generation where the context can grow with each new token.
 
 - Resource Optimization: It helps in optimizing memory and computational resources by avoiding repeated calculations for the same sequence of tokens.
+
+## Difference between MOE, SpareMOE and ShareExpert SpareMOE?
+
+### 1. MOE (Mixture of Experts)
+
+MOE consists of multiple expert networks (Experts) and a gating network (Gating Network). The gating network assigns different experts to process input data, improving computational efficiency.
+
+- **Key Features**:
+  - Utilizes multiple experts (Experts), each being a sub-model.
+  - Uses a gating network to determine which experts process the input.
+  - Supports **sparse computation**, where each input activates only a subset of experts, reducing computational costs.
+
+### 2. SpareMOE
+
+SpareMOE is an optimized sparse MOE structure that focuses on **reducing computational costs while maintaining efficiency**, avoiding the activation of all experts.
+
+- **Key Features**:
+  - **Sparse expert selection**: The gating network activates only a subset of experts instead of all, reducing computational overhead.
+  - **Reduced parameter count**: Compared to standard MOE, SpareMOE optimizes expert allocation for more efficient computation.
+  - **Primary goal**: Minimize computational burden while maintaining or improving model performance.
+
+---
+
+### 3. ShareExpert SpareMOE
+
+ShareExpert SpareMOE(in DeepSeek Version) builds on SpareMOE by introducing a **shared expert mechanism**, further optimizing computational efficiency and parameter utilization.
+
+- **Key Features**:
+  - **Shared Experts**: Multiple tasks or different data samples can share certain experts, reducing redundant computation.
+  - **Eliminates redundant experts**: By sharing experts, the model reduces overall parameter count while maintaining high efficiency.
+  - **Suitable for multi-task learning**: The shared expert approach is particularly useful for multi-task scenarios, improving generalization capabilities.
+
+
+### Summary
+
+| Model | Key Features | Suitable Scenarios |
+|-------|-------------|--------------------|
+| **MOE** | Multiple expert networks, gating network selects experts | Large-scale models to improve computational efficiency |
+| **SpareMOE** | Sparse expert selection to reduce computational cost | Computation-limited scenarios, such as edge computing |
+| **ShareExpert SpareMOE** | Shared experts to reduce parameter redundancy and improve multi-task capability | Multi-task learning for better generalization |
+
+### **In Simple Terms**:
+- **MOE**: All experts are independent, and the gating network determines which experts participate in computation.
+- **SpareMOE**: Uses fewer experts (sparse computation) to lower computational cost.
+- **ShareExpert SpareMOE**: Allows multiple tasks or data samples to share some experts, reducing parameter redundancy and improving generalization.
+
+### Code implementation
+[Build a miniMoE-LLM from scratch (by bbruceyuan)](https://github.com/bbruceyuan/LLMs-Zero-to-Hero/blob/master/src/video/build_moe_model.ipynb
