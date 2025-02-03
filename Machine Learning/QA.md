@@ -323,4 +323,4 @@ ShareExpert SpareMOE(in DeepSeek Version) builds on SpareMOE by introducing a **
 - **ShareExpert SpareMOE**: Allows multiple tasks or data samples to share some experts, reducing parameter redundancy and improving generalization.
 
 ### Code implementation
-[Build a miniMoE-LLM from scratch (by bbruceyuan)](https://github.com/bbruceyuan/LLMs-Zero-to-Hero/blob/master/src/video/build_moe_model.ipynb
+[Build a miniMoE-LLM from scratch (by bbruceyuan)](https://github.com/bbruceyuan/LLMs-Zero-to-Hero/blob/master/src/video/build_moe_model.ipynb)
