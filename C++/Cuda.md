@@ -94,3 +94,29 @@ addNumbers<<<gridSize, blockSize>>>(a, b, result);
 ```
 
 here `addNumbers` is the name of our kernel and `gridSize` and `blockSize` is the size of grid and block and are `a`, `b`, `result` are the arguments passed to the kernel
+
+## Thread Synchronization
+
+- `cudaDeviceSynchronize();` ⇒ **uesd on host**. makes sure all the kernel for one problem are caught up so you can safely begin the next. Think of this as a barrier. Called from your `int main() {}` or another non`__global__` function.
+
+- `__syncthreads();` to put a barrier for thread execution **inside the kernel**. useful if you are messing with the same memory spots and needs all the other jobs to catch up before you start making edits to a certain place. for example: one worker might be halfway done doing stuff to a place in memory. another worker might already be done the job task that the first worker is still doing. if this faster worker messes with a piece of memory that the slower worker still needs, you can get numerical instability and errors.
+
+- `__syncwarps();` sync all threads within a warp
+
+- why do we even need to synchronize threads? because threads are asynchronous and can be executed in any order. if you have a thread that is dependent on another thread, you need to make sure that the thread that is dependent on the other thread is not executed before the other thread is done.
+
+- For example, if we want to vector add the two arrays `a = [1, 2, 3, 4]`, `b = [5, 6, 7, 8]` and store the result in `c`, then add 1 to each element in `c`, we need to ensure all the multiply operations catch up before moving onto adding (following PEDMAS). If we don't sync threads here, there is a possibility that we may get an incorrect output vector where a 1 is added before a multiply.
+
+- A more clear but less common example would be when we parallelize a bit shift. If we have a bit shift operation that is dependent on the previous bit shift operation, we need to make sure that the previous bit shift operation is done before we move onto the next one.
+
+```cpp
+__global__ void kernel(int* a){
+    int i = threadIdx.x + blockDim.x * blockIdx.x;
+    if(i < 3){
+        int temp = a[i+1];
+        __synthreads;
+        a[i] = temp;
+        __synthreads;
+    }
+}
+```
