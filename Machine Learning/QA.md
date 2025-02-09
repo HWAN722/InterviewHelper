@@ -182,7 +182,7 @@ Dimensionality Curse: Increasing the number of features (especially irrelevant o
 
 # Deep Learning
 
-## 1. What do transformer use, BN or LN?
+## What do transformer use, BN or LN? What is RMSNorm?
 Transformer uses **Layer Normalization**.
 
 ### Batch Normalization
@@ -201,12 +201,20 @@ Layer normalization is to normalize the feature dimension of each sample. Specif
 - Suitable for sequence model: In Transformer, the input is usually sequence data, and LN can effectively deal with the dependence of each position in the sequence.
 - Simplified training: Compared with BN, LN does not need to maintain batch statistics during training and reasoning, which reduces the complexity of implementation.
 
-## 2. Difference between Layer Normalization of GPT3 and LLAMA
+### RMSNormalization
+RMS Normalization only needs to calculate the Root Mean Square to do normalization
+
+**Features and limitations:**
+- Faster in calculation, because it doesn't need average or standard error
+- No `beta` offset, scaling with `gamma` only.
+- `Llama` model uses RMSNorm to improve efficiency.
+
+## Difference between Layer Normalization of GPT3 and LLAMA
 GPT3 uses Post-Layer Normalization. The calculation of self-attention or feedforward neural network is carried out first, and then the Layer Normalization is carried out. This structure is helpful to stabilize the training process and improve the model performance.
 
 Llama uses Pre-Layer Normalization. Layer Normalization is performed first, and then the calculation of self-attention or feedforward neural network is performed. This structure helps to improve the generalization ability and robustness of the model.
 
-## 3. Commonly used activation function for LLM
+## Commonly used activation function for LLM
 
 ### GeLU(Gaussian Error Linear Unit)
 GELU is currently the most widely used activation function in transformer-based LLMs. It was popularized by the BERT model and has since become a standard choice in many architectures, including GPT series.
@@ -224,7 +232,7 @@ Swish is an activation function proposed by Google researchers and has been cons
 | GPT-3               | GELU                | Consistent with evolved transformer architectures |
 | LLaMA               | GELU                | Aligns with state-of-the-art LLM practices |
 
-## 4. How to handle repetition in LLM
+## How to handle repetition in LLM
 
 ### 1. Adjusting Decoding Strategies
 - **Temperature Scaling**: A parameter that controls the randomness of the model's predictions. Lower temperatures make the model more deterministic, while higher temperatures increase randomness.
@@ -235,7 +243,9 @@ Swish is an activation function proposed by Google researchers and has been cons
 - **Diverse Training Data**: Ensuring the training corpus includes a wide variety of language uses and minimizes repetitive patterns.
 - **Data Augmentation**: Introducing variations of sentences and phrases in the training data.
 
-## 5. Formula of Multihead attention, and the reason of divided by square root d_k
+## Formula of Multihead attention, and the reason of divided by square root d_k
+
+[Attention with code](https://github.com/HWAN722/self-improvement/blob/main/Attention.ipynb)
 
 ### Multihead Attention Formula
 

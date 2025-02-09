@@ -177,3 +177,64 @@ int main() {
 - **Memory allocation**:Allocate memory on the heap. The memory management of heap is relatively complex, which needs to be managed manually by programmers.
 - **Life cycle**:The life cycle of an object is controlled by the programmer. Delete me must be called manually when the object is no longer needed; To release memory to avoid memory leakage.
 - **Use**:Access the methods and properties of an object through the `->` operator, for example: `me->eat ();` .
+
+## class & struct
+`class` and `struct` are very similar in C++ and can be used almost interchangeably.
+
+### struct
+- Usually used in passive data structures, mainly used to store data members.
+- Members are `public` by default, which is suitable for scenarios that require direct access to data.
+- Often used for simple objects, such as point coordinates, color values, etc.
+
+### class
+- Used for more complex objects, covering object-oriented features such as encapsulation, inheritance and polymorphism.
+- Members are `private` by default, emphasizing data hiding and encapsulation.
+- Contains member functions, constructors, destructors, etc.
+
+## constructor & destructor
+
+### constructor
+
+- Objective: Initialize the member variables of the object and allocate the necessary resources when creating the object.
+- Naming: Same as class name, no return type.
+- Type:
+    - Default constructor (no parameters)
+    - Constructor with parameters
+    - Copy constructor
+
+### destructor
+
+- Objective: When the object is destroyed, release the allocated resources and perform the cleaning operation.
+- Naming: add a tilde ~ before the class name, which is the same as the class name and has no return type.
+- Features:
+    - Each class can only have one destructor.
+    - Parameters are not accepted and cannot be overloaded.
+    - Automatically called when the object is destroyed.
+    - In the inheritance relationship, the destructor of the base class should be declared as virtual to ensure that the destructor of the derived class is called correctly.
+
+**Example**
+```cpp
+class Example {
+public:
+    // constructor
+    Example(const std::string& name) : name(name) {
+        std::cout << "constructor: " << name << std::endl;
+    }
+    
+    // destructor
+    ~Example() {
+        std::cout << "destructor: " << name << std::endl;
+    }
+
+private:
+    std::string name;
+};
+
+int main() {
+    Example obj("TestObject");
+    // Output:
+    // constructor: TestObject
+    // destructor: TestObject
+    return 0;
+}
+```
