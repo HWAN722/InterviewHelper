@@ -39,6 +39,33 @@ int b = a + 1;  // 'a + 1' is an rvalue
 std::string greeting = "Hello" + std::string(" World");  // The result of the string concatenation is an rvalue
 ```
 
+**Function Reference**
+- &: Lvalue Reference
+```cpp
+void func(int& x) {  // Only accept lvalue
+    int a = 10;
+    func(a);  // correct
+    // func(10);  // error
+}
+```
+- &&: Rvalue Reference
+```cpp
+void func(int&& x) {  // Only accept rvalue
+    // func(a);  // error
+    func(10);  // correct
+}
+```
+- auto&&: Universal Reference/Forwarding Reference
+```cpp
+template<typename T>
+void func(T&& x) {  // accept both lvalue and rvalue
+    int a = 10;
+    func(a);    // correct
+    func(10);   // correct
+}
+```
+
+
 **Overloaded Assignment Operator**
 `t{} = b` must be an object that can be assigned to `a`
 ```cpp
