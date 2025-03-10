@@ -273,6 +273,19 @@ The division by $$\sqrt{d_k}$$ is a scaling factor that is crucial for the stabi
 
 - 3. **Empirical Performance**: Empirically, it has been observed that this scaling improves the performance of the model, leading to faster convergence and better results.
 
+## Difference between torch.no_grad(), model.eval() and model.train()
+
+**torch.no_grad()**: Used during inference, do not calculate gradient. Mostly used with `model.eval()`.
+
+**model.eval()**: Affect pattern of some layers(BatchNorm and Dropout)
+- 1. BatchNorm: use `running_mean` and `running_var`, and will not update these values.
+- 2. Dropout: will not drop any neurons, all neurons will involve calculations.
+
+**model.train()**: Affect pattern of some layers(BatchNorm and Dropout)
+- 1. BatchNorm: use means and variance from current batch, and update `running_mean` and `running_var` for eval.
+- 2. Dropout: drop neurons randomly.
+
+
 ## What is KV-cache, and why there is no Q-cache?
 
 **KV-cache**: This is a mechanism to store the key and value matrices from previous time steps so that they do not need to be recomputed for each new token in a sequence. When generating text, each new token requires the model to attend to all previous tokens. By caching the keys and values, the model can efficiently compute the attention for new tokens without recalculating the entire sequence's keys and values.
