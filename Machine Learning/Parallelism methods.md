@@ -52,26 +52,11 @@ Designs utilize strengths of each approach to maximize efficiency and scalabilit
 - Pros: Scales models to extreme sizes (hundreds of billions of parameters or more).
 - Cons: Most complex to design/implement.
 
-+-----------------------+-------------------------------------------------------------+-----------------------------------------+
 | Parallelism Type      | How It Works                                                | Pros / Cons                             |
-+=======================+=============================================================+=========================================+
-| Data Parallelism      | Full model copy per device; each processes different batch. | + Simple, widely used                   |
-|                       | Gradients averaged & model synced after each step.          | - Redundant memory per GPU              |
-+-----------------------+-------------------------------------------------------------+-----------------------------------------+
-| Model Parallelism     | Model split across devices; layers or layer parts assigned. | + Enables larger models                 |
-|                       | Data moves across devices in forward/backward passes.       | - Needs careful partitioning            |
-|                       |                                                             | - Inter-device communication overhead   |
-+-----------------------+-------------------------------------------------------------+-----------------------------------------+
-| Pipeline Parallelism  | Model divided into sequential stages by device.             | + Better device utilization             |
-|                       | Micro-batches pipelined through model stages.               | - Pipeline bubbles inefficiency         |
-+-----------------------+-------------------------------------------------------------+-----------------------------------------+
-| Tensor Parallelism    | Computations (e.g., matrix mults) within layers are split.  | + Huge model/layer scaling              |
-|                       | Each device does a part and results are aggregated.         | - Much communication                    |
-+-----------------------+-------------------------------------------------------------+-----------------------------------------+
-| ZeRO                  | Shards model params, gradients, optimizers across devices.  | + Dramatic memory savings               |
-| (Zero Redundancy      | No full copy—each device holds only a fragment.             | + Combines with other methods           |
-| Optimizer)            |                                                             | - Needs special frameworks (DeepSpeed)  |
-+-----------------------+-------------------------------------------------------------+-----------------------------------------+
-| Hybrid Parallelism    | Combinations (e.g., Data + Tensor + ZeRO + Pipeline).       | + Ultra-large scale possible            |
-|                       | Uses multiple techniques together.                          | - Most complex to orchestrate           |
-+-----------------------+-------------------------------------------------------------+-----------------------------------------+
+|------------------------|-------------------------------------------------------------|-----------------------------------------|
+| Data Parallelism       | Full model copy per device; each processes different batch. <br> Gradients averaged & model synced after each step. | + Simple, widely used <br> - Redundant memory per GPU |
+| Model Parallelism      | Model split across devices; layers or layer parts assigned. <br> Data moves across devices in forward/backward passes. | + Enables larger models <br> - Needs careful partitioning <br> - Inter-device communication overhead |
+| Pipeline Parallelism   | Model divided into sequential stages by device. <br> Micro-batches pipelined through model stages. | + Better device utilization <br> - Pipeline bubbles inefficiency |
+| Tensor Parallelism     | Computations (e.g., matrix mults) within layers are split. <br> Each device does a part and results are aggregated. | + Huge model/layer scaling <br> - Much communication |
+| ZeRO (Zero Redundancy Optimizer) | Shards model params, gradients, optimizers across devices. <br> No full copy—each device holds only a fragment. | + Dramatic memory savings <br> + Combines with other methods <br> - Needs special frameworks (DeepSpeed) |
+| Hybrid Parallelism     | Combinations (e.g., Data + Tensor + ZeRO + Pipeline). <br> Uses multiple techniques together. | + Ultra-large scale possible <br> - Most complex to orchestrate |
