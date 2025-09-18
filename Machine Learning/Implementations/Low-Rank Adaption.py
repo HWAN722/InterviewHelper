@@ -58,7 +58,9 @@ batch_size = 32
 seq_len = 128
 in_features = 768
 out_features = 512
+# small rank sacrifice performance for training efficiency, big rank for large model, but may leads to overfitting
 rank = 8
+# scaling factor
 lora_alpha = 16
 dropout = 0.1
 
