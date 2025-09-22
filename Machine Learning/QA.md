@@ -347,3 +347,24 @@ ShareExpert SpareMOE(in DeepSeek Version) builds on SpareMOE by introducing a **
 
 ### Code implementation
 [Build a miniMoE-LLM from scratch (by bbruceyuan)](https://github.com/bbruceyuan/LLMs-Zero-to-Hero/blob/master/src/video/build_moe_model.ipynb)
+
+
+## Difference between Agents and Experts
+
+### Agent
+- **Definition**: An agent is an AI (often powered by an LLM) that can take actions toward a goal.
+- **Abilities**:
+    - Uses reasoning and planning.
+    - Can interact with tools, APIs, or external systems.
+    - Executes multi-step tasks autonomously.
+    
+👉 Example: An AI travel agent can look up flights, compare prices, and suggest itineraries—it isn’t just answering questions, it’s acting on your behalf.
+
+### Expert
+- **Definition**: An expert is a specialized source of knowledge (human or AI) in a particular domain.
+- **Abilities**:
+    - Provides deep subject-matter knowledge.
+    - Can answer domain-specific questions with authority and detail.
+    - Doesn’t necessarily take external actions.
+    
+👉 Example: A medical expert can explain disease symptoms, treatment options, and best practices—but it doesn’t “book your doctor’s appointment” for you.
